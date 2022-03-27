@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
+    apiUrl: "http://localhost:4000",
     store: "main",
     notifications: [],
   }),

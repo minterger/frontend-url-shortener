@@ -1,62 +1,69 @@
 import { defineStore } from "pinia";
 import { useMainStore } from "./main";
+import { useRouter } from "vue-router"
 import axios from "axios";
+
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
-    store: "auth",
+    mainStore: useMainStore(),
+    router: useRouter(),
     user: null,
     token: null,
   }),
   actions: {
     async getUser() {
-      const mainStore = useMainStore();
       try {
         if (this.token) {
-          const res = await axios.get("/auth/", {
+          const res = await axios.get(this.mainStore.apiUrl +"/auth/", {
             headers: {
               authorization: `${this.token}`,
             },
           });
           if (res.data.ok) {
             this.user = res.data.user;
-            mainStore.addNotification({
+            this.mainStore.addNotification({
               id: Math.random(),
               type: "success",
               message: "Welcome back!",
             });
           } else {
-            mainStore.addNotification({
+            this.mainStore.addNotification({
               id: Math.random(),
               type: "error",
-              message: "You are not logged in!",
+              message: res.data.msg,
             });
           }
         }
       } catch (error) {
-        this.alert = error.response.data;
+        this.mainStore.addNotification({
+          id: Math.random(),
+          type: "error",
+          message: error.message,
+        });
+        this.logout();
       }
     },
 
     async login(email, password) {
-      const mainStore = useMainStore();
       try {
-        const res = await axios.post("/auth/login", {
+        const res = await axios.post(this.mainStore.apiUrl +"/auth/login", {
           email,
           password,
         });
         if (res.data.ok) {
           this.saveToken(res.data.token);
           this.getUser();
+          this.router.push("/dashboard");
         } else {
-          mainStore.addNotification({
+          this.mainStore.addNotification({
             id: Math.random(),
             type: "error",
             message: res.data.msg,
           });
         }
       } catch (error) {
-        mainStore.addNotification({
+        this.mainStore.addNotification({
           id: Math.random(),
           type: "error",
           message: error.response.data.message,
@@ -65,9 +72,8 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async register(email, password, confirmPassword) {
-      const mainStore = useMainStore();
       try {
-        const res = await axios.post("/auth/register", {
+        const res = await axios.post(this.mainStore.apiUrl +"/auth/register", {
           email,
           password,
           confirmPassword,
@@ -76,15 +82,16 @@ export const useAuthStore = defineStore("auth", {
         if (res.data.ok) {
           this.token = res.data.token;
           this.getUser();
+          this.router.push("/dashboard");
         } else {
-          mainStore.addNotification({
+          this.mainStore.addNotification({
             id: Math.random(),
             type: "error",
             message: res.data.msg,
           });
         }
       } catch (error) {
-        mainStore.addNotification({
+        this.mainStore.addNotification({
           id: Math.random(),
           type: "error",
           message: error.response.data.message,
@@ -93,14 +100,14 @@ export const useAuthStore = defineStore("auth", {
     },
 
     logout() {
-      const mainStore = useMainStore();
       this.user = null;
       this.removeToken();
-      mainStore.addNotification({
+      this.mainStore.addNotification({
         id: Math.random(),
         type: "success",
         message: "You have been logged out.",
       });
+      this.router.push("/");
     },
 
     saveToken(token) {

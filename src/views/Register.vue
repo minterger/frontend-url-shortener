@@ -12,7 +12,7 @@ const user = reactive({
 </script>
 
 <template>
-  <div class="m-2">
+  <div class="m-3">
     <h2 class="text-center my-10 text-2xl">Register your Account</h2>
 
     <div

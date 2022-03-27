@@ -4,21 +4,6 @@ import { ref } from "vue";
 
 const authStore = useAuthStore();
 
-const navItems = ref([
-  {
-    text: "Home",
-    to: "/",
-  },
-  {
-    text: "About",
-    to: "/#about",
-  },
-  {
-    text: "Dashboard",
-    to: "/dashboard",
-  },
-]);
-
 const toogleNav = ref(false);
 </script>
 
@@ -76,11 +61,19 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch">
           <router-link
+            v-if="!authStore.token"
             to="/login"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
-            {{ authStore.user ? "Logout" : "Login" }}
+            Login
           </router-link>
+          <button
+          v-else
+            @click="authStore.logout"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
+          >
+            Logout
+          </button>
         </li>
       </ul>
 
@@ -118,11 +111,19 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch">
           <router-link
+            v-if="!authStore.token"
             to="/login"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
-            {{ authStore.user ? "Logout" : "Login" }}
+            Login
           </router-link>
+          <button
+          v-else
+            @click="authStore.logout"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>
