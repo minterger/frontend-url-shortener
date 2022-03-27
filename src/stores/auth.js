@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import { useMainStore } from "./main";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 import axios from "axios";
-
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
@@ -15,12 +14,13 @@ export const useAuthStore = defineStore("auth", {
     async getUser() {
       try {
         if (this.token) {
-          const res = await axios.get(this.mainStore.apiUrl +"/auth/", {
+          const res = await axios.get(this.mainStore.apiUrl + "/auth/", {
             headers: {
               authorization: `${this.token}`,
             },
           });
           if (res.data.ok) {
+            console.log(res.data.user);
             this.user = res.data.user;
             this.mainStore.addNotification({
               id: Math.random(),
@@ -47,7 +47,7 @@ export const useAuthStore = defineStore("auth", {
 
     async login(email, password) {
       try {
-        const res = await axios.post(this.mainStore.apiUrl +"/auth/login", {
+        const res = await axios.post(this.mainStore.apiUrl + "/auth/login", {
           email,
           password,
         });
@@ -73,7 +73,7 @@ export const useAuthStore = defineStore("auth", {
 
     async register(email, password, confirmPassword) {
       try {
-        const res = await axios.post(this.mainStore.apiUrl +"/auth/register", {
+        const res = await axios.post(this.mainStore.apiUrl + "/auth/register", {
           email,
           password,
           confirmPassword,
