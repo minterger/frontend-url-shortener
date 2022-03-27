@@ -9,7 +9,7 @@ const toogleNav = ref(false);
 
 <template>
   <nav
-    class="flex justify-center items-center h-11 w-full bg-white border-b dark:border-slate-800 dark:bg-slate-900 shadow-lg"
+    class="z-50 flex justify-center items-center h-11 w-full bg-white border-b dark:border-slate-800 dark:bg-slate-900 shadow-lg"
   >
     <div
       class="w-full h-full relative sm:w-11/12 max-w-7xl px-3 flex justify-between items-center"
@@ -68,7 +68,7 @@ const toogleNav = ref(false);
             Login
           </router-link>
           <button
-          v-else
+            v-else
             @click="authStore.logout"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
@@ -79,8 +79,10 @@ const toogleNav = ref(false);
 
       <!-- mobile nav -->
       <ul
-        class="sm:hidden flex border-t dark:border-slate-800 py-2 px-1 gap-2 flex-col items-stretch bg-white dark:bg-slate-900 shadow-lg absolute top-full left-0 w-full transition-all"
-        :class="[toogleNav ? 'max-h-screen' : 'max-h-0 invisible']"
+        class="sm:hidden flex border-t dark:border-slate-800 py-2 px-1 gap-2 flex-col items-stretch bg-white dark:bg-slate-900 shadow-lg absolute top-full left-0 w-full transition-all duration-200"
+        :class="[
+          toogleNav ? 'max-h-screen' : 'max-h-0 invisible overflow-hidden',
+        ]"
       >
         <li class="flex flex-col items-stretch sm:items-center">
           <router-link
@@ -118,7 +120,7 @@ const toogleNav = ref(false);
             Login
           </router-link>
           <button
-          v-else
+            v-else
             @click="authStore.logout"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >

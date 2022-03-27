@@ -9,7 +9,9 @@ authStore.getUser();
 </script>
 
 <template>
-  <div class="dark:text-slate-50 dark:bg-slate-900 min-h-screen">
+  <div
+    class="dark:text-slate-50 dark:bg-slate-900 min-h-screen flex items-center flex-col"
+  >
     <navbar-vue></navbar-vue>
     <router-view v-slot="{ Component }">
       <transition name="transition">
