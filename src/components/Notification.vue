@@ -34,7 +34,7 @@ const bgColor = {
 </script>
 
 <template>
-  <div :class="bgColor[props.type]" class="rounded-sm p-2 m-2 w-60">
+  <div :class="bgColor[props.type]" class="rounded-sm text-white p-2 m-2 w-60">
     <p class="text-sm">{{ props.message }}</p>
   </div>
 </template>
