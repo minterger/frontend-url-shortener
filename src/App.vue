@@ -1,5 +1,6 @@
 <script setup>
 import NavbarVue from "./components/Navbar.vue";
+import Notifications from "./components/Notifications.vue";
 import { useAuthStore } from "./stores/auth";
 
 const authStore = useAuthStore();
@@ -13,6 +14,7 @@ authStore.getUser();
     class="dark:text-slate-50 dark:bg-slate-900 min-h-screen flex items-center flex-col"
   >
     <navbar-vue></navbar-vue>
+    <notifications></notifications>
     <router-view v-slot="{ Component }">
       <transition name="transition">
         <component :is="Component" />

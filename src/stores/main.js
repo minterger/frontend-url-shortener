@@ -2,17 +2,18 @@ import { defineStore } from "pinia";
 
 export const useMainStore = defineStore("main", {
   state: () => ({
-    apiUrl: "http://localhost:4000",
+    apiUrl: import.meta.env.VITE_API_URL,
     store: "main",
     notifications: [],
   }),
   actions: {
     addNotification(notification) {
-      this.notifications.push(notification);
+      notification.id = Math.floor(Math.random() * 1000000);
+      this.notifications.unshift(notification);
     },
-    removeNotification(notification) {
+    removeNotification(id) {
       this.notifications = this.notifications.filter(
-        (notification) => notification.id !== notification.id
+        (notification) => notification.id !== id
       );
     },
   },

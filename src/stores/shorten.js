@@ -22,27 +22,21 @@ export const useShortenStore = defineStore("shorten", {
           }
         );
 
+        console.log("normal");
         if (res.data.ok) {
           this.mainStore.addNotification({
-            id: Math.random(),
             type: "success",
             message: "Shortened URL successfully",
           });
           this.authStore.getUser();
-          return res.data.url.shortUrl;
-        } else {
-          this.mainStore.addNotification({
-            id: Math.random(),
-            type: "error",
-            message: res.data.msg,
-          });
+          return res.data.url._id;
         }
       } catch (error) {
         this.mainStore.addNotification({
-          id: Math.random(),
           type: "error",
-          message: error.response.data.message,
+          message: error.response.data.msg,
         });
+        return error.response.data.id;
       }
     },
     async deleteUrl(shortUrl) {
@@ -58,23 +52,15 @@ export const useShortenStore = defineStore("shorten", {
 
         if (res.data.ok) {
           this.mainStore.addNotification({
-            id: Math.random(),
-            type: "success",
+            type: "error",
             message: "URL deleted successfully",
           });
           this.authStore.getUser();
-        } else {
-          this.mainStore.addNotification({
-            id: Math.random(),
-            type: "error",
-            message: res.data.msg,
-          });
         }
       } catch (error) {
         this.mainStore.addNotification({
-          id: Math.random(),
           type: "error",
-          message: error.response.data.message,
+          message: error.response.data.msg,
         });
       }
     },

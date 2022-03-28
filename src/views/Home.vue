@@ -1,23 +1,5 @@
 <script setup>
-import { useAuthStore } from "../stores/auth";
-import { useShortenStore } from "../stores/shorten";
-import { ref } from "vue";
-
-const authStore = useAuthStore();
-const shortenStore = useShortenStore();
-
-const shortenLink = ref("");
-
-const shorten = async () => {
-  if (authStore.token) {
-    shortenLink.value = await shortenStore.shortenUrl(shortenLink.value);
-  } else {
-    authStore.setNotification({
-      message: "You must be logged in to shorten links",
-      type: "error",
-    });
-  }
-};
+import ShortenForm from "../components/ShortenForm.vue";
 </script>
 
 <template>
@@ -38,18 +20,7 @@ const shorten = async () => {
     </header>
 
     <main class="flex gap-3 flex-col sm:flex-row">
-      <input
-        type="text"
-        class="border flex-1 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2"
-        placeholder="Paste your link here"
-        v-model="shortenLink"
-      />
-      <button
-        class="rounded-sm sm:w-2/12 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200"
-        @click="shorten"
-      >
-        Shorten
-      </button>
+      <shorten-form></shorten-form>
     </main>
   </div>
 </template>

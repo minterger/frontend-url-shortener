@@ -8,6 +8,11 @@ const routes = [
     component: () => import("../views/Home.vue"),
   },
   {
+    path: "/:id",
+    name: "shorten",
+    component: () => import("../views/Shorten.vue"),
+  },
+  {
     path: "/login",
     name: "login",
     component: () => import("../views/Login.vue"),

@@ -1,19 +1,40 @@
 <script setup>
+import { onUnmounted } from "vue";
 import { useMainStore } from "../stores/main";
 
 const mainStore = useMainStore();
+
+const props = defineProps({
+  id: {
+    type: Number,
+  },
+  type: {
+    type: String,
+    default: "success",
+  },
+  message: {
+    type: String,
+    default: "",
+  },
+});
+
+const timeout = setTimeout(() => {
+  mainStore.removeNotification(props.id);
+}, 5000);
+
+onUnmounted(() => {
+  clearTimeout(timeout);
+});
+
+const bgColor = {
+  success: "bg-green-500",
+  error: "bg-red-500",
+  info: "bg-blue-500",
+};
 </script>
 
 <template>
-  <transition-group>
-    <div>
-      <div
-        v-for="notification in mainStore.notifications"
-        :key="notification.id"
-        class="flex items-center justify-center"
-      >
-        {{ notification.message }}
-      </div>
-    </div>
-  </transition-group>
+  <div :class="bgColor[props.type]" class="rounded-sm p-2 m-2 w-60">
+    <p class="text-sm">{{ props.message }}</p>
+  </div>
 </template>

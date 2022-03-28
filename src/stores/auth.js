@@ -8,6 +8,7 @@ export const useAuthStore = defineStore("auth", {
     mainStore: useMainStore(),
     router: useRouter(),
     user: null,
+    urls: [],
     token: null,
   }),
   actions: {
@@ -20,25 +21,15 @@ export const useAuthStore = defineStore("auth", {
             },
           });
           if (res.data.ok) {
+            this.urls = res.data.user.urls;
+            delete res.data.user.urls;
             this.user = res.data.user;
-            this.mainStore.addNotification({
-              id: Math.random(),
-              type: "success",
-              message: "Welcome back!",
-            });
-          } else {
-            this.mainStore.addNotification({
-              id: Math.random(),
-              type: "error",
-              message: res.data.msg,
-            });
           }
         }
       } catch (error) {
         this.mainStore.addNotification({
-          id: Math.random(),
           type: "error",
-          message: error.message,
+          message: error.response.data.msg,
         });
         this.logout();
       }
@@ -54,18 +45,15 @@ export const useAuthStore = defineStore("auth", {
           this.saveToken(res.data.token);
           this.getUser();
           this.router.push("/dashboard");
-        } else {
           this.mainStore.addNotification({
-            id: Math.random(),
-            type: "error",
-            message: res.data.msg,
+            type: "success",
+            message: "Welcome back!",
           });
         }
       } catch (error) {
         this.mainStore.addNotification({
-          id: Math.random(),
           type: "error",
-          message: error.response.data.message,
+          message: error.response.data.msg,
         });
       }
     },
@@ -79,21 +67,18 @@ export const useAuthStore = defineStore("auth", {
         });
 
         if (res.data.ok) {
-          this.token = res.data.token;
+          this.saveToken(res.data.token);
           this.getUser();
           this.router.push("/dashboard");
-        } else {
           this.mainStore.addNotification({
-            id: Math.random(),
-            type: "error",
-            message: res.data.msg,
+            type: "success",
+            message: "Welcome to Shorten Page!",
           });
         }
       } catch (error) {
         this.mainStore.addNotification({
-          id: Math.random(),
           type: "error",
-          message: error.response.data.message,
+          message: error.response.data.msg,
         });
       }
     },
@@ -102,7 +87,6 @@ export const useAuthStore = defineStore("auth", {
       this.user = null;
       this.removeToken();
       this.mainStore.addNotification({
-        id: Math.random(),
         type: "success",
         message: "You have been logged out.",
       });
