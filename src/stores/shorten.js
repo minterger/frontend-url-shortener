@@ -13,7 +13,7 @@ export const useShortenStore = defineStore("shorten", {
     async shortenUrl(longUrl) {
       try {
         const res = await axios.post(
-          `${this.mainStore.apiUrl}/shorten`,
+          `${this.mainStore.apiUrl}/url`,
           { longUrl },
           {
             headers: {
@@ -29,7 +29,7 @@ export const useShortenStore = defineStore("shorten", {
             message: "Shortened URL successfully",
           });
           this.authStore.getUser();
-          return res.data.shortUrl;
+          return res.data.url.shortUrl;
         } else {
           this.mainStore.addNotification({
             id: Math.random(),
@@ -48,7 +48,7 @@ export const useShortenStore = defineStore("shorten", {
     async deleteUrl(shortUrl) {
       try {
         const res = await axios.delete(
-          `${this.mainStore.apiUrl}/shorten/${shortUrl}`,
+          `${this.mainStore.apiUrl}/url/${shortUrl}`,
           {
             headers: {
               authorization: `${this.authStore.token}`,

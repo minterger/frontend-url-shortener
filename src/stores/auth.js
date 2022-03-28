@@ -20,7 +20,6 @@ export const useAuthStore = defineStore("auth", {
             },
           });
           if (res.data.ok) {
-            console.log(res.data.user);
             this.user = res.data.user;
             this.mainStore.addNotification({
               id: Math.random(),
