@@ -55,7 +55,7 @@ export const useShortenStore = defineStore("shorten", {
             type: "error",
             message: "URL deleted successfully",
           });
-          this.authStore.getUser();
+          this.authStore.getUrls();
         }
       } catch (error) {
         this.mainStore.addNotification({
