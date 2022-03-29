@@ -32,16 +32,18 @@ const host = location.protocol + "//" + location.host;
             :key="url._id"
             class="border rounded dark:border-slate-600 p-2 flex justify-between flex-col sm:flex-row"
           >
-            <div class="flex sm:items-center flex-col sm:flex-row">
+            <div
+              class="flex sm:items-center flex-col sm:flex-row sm:w-8/12 md:w-9/12"
+            >
               <router-link
                 :to="`/${url._id}`"
-                class="mr-4 text-blue-600 truncate"
+                class="mr-4 text-blue-600 truncate sm:overflow-visible"
                 >{{ `${host}/${url._id}` }}</router-link
               >
               <span class="text-xs truncate">{{ url.longUrl }}</span>
             </div>
             <div class="flex sm:items-center flex-col sm:flex-row">
-              <span class="sm:mr-2 mt-2 sm:mt-0">
+              <span class="sm:mr-2 mt-2 sm:mt-0 whitespace-nowrap">
                 clicks: {{ url.clicks }}/500
               </span>
               <button
