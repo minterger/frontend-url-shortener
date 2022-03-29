@@ -20,17 +20,23 @@ const host = location.protocol + "//" + location.host;
       <div class="mt-6 w-full">
         <h3 class="text-lg font-semibold mb-2">List of your links</h3>
 
-        <transition-group name="transition" tag="ul">
+        <transition-group
+          name="transition"
+          class="flex flex-col gap-1"
+          tag="ul"
+        >
           <li
             v-for="url in authStore.urls"
             :key="url._id"
-            class="border dark:border-slate-600 p-2 flex justify-between"
+            class="border rounded dark:border-slate-600 p-2 flex justify-between"
           >
             <div>
-              <router-link :to="`/${url._id}`" class="mr-4 text-blue-600">{{
-                `${host}/${url._id}`
-              }}</router-link>
-              <span class="text-xs">{{ url.longUrl }}</span>
+              <router-link
+                :to="`/${url._id}`"
+                class="mr-4 align-middle text-blue-600"
+                >{{ `${host}/${url._id}` }}</router-link
+              >
+              <span class="text-xs align-middle">{{ url.longUrl }}</span>
             </div>
             <div>
               <span class="mr-2"> clicks: {{ url.clicks }}/500 </span>
