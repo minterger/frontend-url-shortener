@@ -30,7 +30,7 @@ const count = ref(5);
 // intervalo para el contador
 const interval = setInterval(() => {
   count.value--;
-  if (count.value === 0) {
+  if (count.value < 0) {
     clearInterval(interval);
     count.value = "Go";
     buttonDisabled.value = false;
