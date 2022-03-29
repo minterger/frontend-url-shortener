@@ -43,7 +43,7 @@ const interval = setInterval(() => {
     <main class="mt-3 flex flex-col items-center">
       <span class="my-10 text-3xl font-semibold">Wait to go</span>
       <button
-        class="w-24 h-24 text-lg rounded-full bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 align-middle text-center font-bold text-white border-2 border-blue-900 disabled:border-l-blue-900 transition-colors duration-200"
+        class="w-24 h-24 text-lg rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 align-middle text-center font-bold text-white border-2 border-blue-900 disabled:border-l-blue-900 transition-colors duration-200"
         :disabled="buttonDisabled"
         @click="goUrl"
       >

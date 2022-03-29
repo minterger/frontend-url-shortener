@@ -28,18 +28,22 @@ const host = location.protocol + "//" + location.host;
           <li
             v-for="url in authStore.urls"
             :key="url._id"
-            class="border rounded dark:border-slate-600 p-2 flex justify-between"
+            class="border rounded dark:border-slate-600 p-2 flex justify-between flex-col sm:flex-row"
           >
-            <div>
+            <div class="flex flex-col sm:flex-row">
               <router-link
                 :to="`/${url._id}`"
-                class="mr-4 align-middle text-blue-600"
+                class="mr-4 align-middle text-blue-600 truncate"
                 >{{ `${host}/${url._id}` }}</router-link
               >
-              <span class="text-xs align-middle">{{ url.longUrl }}</span>
+              <span class="text-xs align-middle truncate">{{
+                url.longUrl
+              }}</span>
             </div>
-            <div>
-              <span class="mr-2"> clicks: {{ url.clicks }}/500 </span>
+            <div class="flex flex-col sm:flex-row">
+              <span class="sm:mr-2 mt-2 sm:mt-0">
+                clicks: {{ url.clicks }}/500
+              </span>
               <button
                 @click="shortenStore.deleteUrl(url._id)"
                 class="px-2 py-1 bg-red-600 text-white rounded-sm"
