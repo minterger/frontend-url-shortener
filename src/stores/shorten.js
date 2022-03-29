@@ -28,7 +28,7 @@ export const useShortenStore = defineStore("shorten", {
             type: "success",
             message: "Shortened URL successfully",
           });
-          this.authStore.getUser();
+          this.authStore.getUrls();
           return res.data.url._id;
         }
       } catch (error) {

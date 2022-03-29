@@ -21,8 +21,6 @@ export const useAuthStore = defineStore("auth", {
             },
           });
           if (res.data.ok) {
-            this.urls = res.data.user.urls;
-            delete res.data.user.urls;
             this.user = res.data.user;
           }
         }
@@ -74,6 +72,24 @@ export const useAuthStore = defineStore("auth", {
             type: "success",
             message: "Welcome to Shorten Page!",
           });
+        }
+      } catch (error) {
+        this.mainStore.addNotification({
+          type: "error",
+          message: error.response.data.msg,
+        });
+      }
+    },
+    async getUrls() {
+      try {
+        const res = await axios.get(this.mainStore.apiUrl + "/url/all", {
+          headers: {
+            authorization: `${this.token}`,
+          },
+        });
+
+        if (res.data.ok) {
+          this.urls = res.data.urls;
         }
       } catch (error) {
         this.mainStore.addNotification({

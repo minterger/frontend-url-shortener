@@ -6,6 +6,8 @@ import ShortenForm from "../components/ShortenForm.vue";
 const authStore = useAuthStore();
 const shortenStore = useShortenStore();
 
+authStore.getUrls();
+
 const host = location.protocol + "//" + location.host;
 </script>
 
@@ -30,17 +32,15 @@ const host = location.protocol + "//" + location.host;
             :key="url._id"
             class="border rounded dark:border-slate-600 p-2 flex justify-between flex-col sm:flex-row"
           >
-            <div class="flex flex-col sm:flex-row">
+            <div class="flex sm:items-center flex-col sm:flex-row">
               <router-link
                 :to="`/${url._id}`"
-                class="mr-4 align-middle text-blue-600 truncate"
+                class="mr-4 text-blue-600 truncate"
                 >{{ `${host}/${url._id}` }}</router-link
               >
-              <span class="text-xs align-middle truncate">{{
-                url.longUrl
-              }}</span>
+              <span class="text-xs truncate">{{ url.longUrl }}</span>
             </div>
-            <div class="flex flex-col sm:flex-row">
+            <div class="flex sm:items-center flex-col sm:flex-row">
               <span class="sm:mr-2 mt-2 sm:mt-0">
                 clicks: {{ url.clicks }}/500
               </span>
