@@ -12,8 +12,8 @@ import ShortenForm from "../components/ShortenForm.vue";
           Shorten your links here
         </h2>
         <p class="mt-4 sm:mt-2">
-          shorten links saving memory on our servers avoiding shortening already
-          saved links
+          We save memory by not shortening repeated links, repeated links are
+          shared between users
         </p>
       </div>
       <img alt="home svg" src="../assets/header-home.svg" />

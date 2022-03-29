@@ -18,7 +18,7 @@ const toogleNav = ref(false);
         to="/"
         class="text-lg font-bold text-slate-900 dark:text-slate-50"
       >
-        Shortener</router-link
+        LinksTo</router-link
       >
 
       <button class="sm:hidden px-2 py-1" @click="toogleNav = !toogleNav">
