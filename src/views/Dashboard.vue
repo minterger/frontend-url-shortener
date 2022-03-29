@@ -55,7 +55,10 @@ const host = location.protocol + "//" + location.host;
             </div>
           </li>
         </transition-group>
-        <div v-if="authStore.urls.length < 1" class="flex justify-center">
+        <div
+          v-if="authStore.urls.length < 1 && authStore.loads.urls"
+          class="flex justify-center"
+        >
           <span class="text-lg">You don't have any links yet. </span>
         </div>
       </div>

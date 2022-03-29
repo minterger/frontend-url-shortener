@@ -10,6 +10,9 @@ export const useAuthStore = defineStore("auth", {
     user: null,
     urls: [],
     token: null,
+    loads: {
+      urls: false,
+    },
   }),
   actions: {
     async getUser() {
@@ -25,11 +28,11 @@ export const useAuthStore = defineStore("auth", {
           }
         }
       } catch (error) {
+        this.logout();
         this.mainStore.addNotification({
           type: "error",
-          message: error.response.data.msg,
+          message: error.response.data.msg || "Session expired",
         });
-        this.logout();
       }
     },
 
@@ -49,10 +52,12 @@ export const useAuthStore = defineStore("auth", {
           });
         }
       } catch (error) {
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg,
-        });
+        if (error.response.data.msg) {
+          this.mainStore.addNotification({
+            type: "error",
+            message: error.response.data.msg,
+          });
+        }
       }
     },
 
@@ -74,28 +79,35 @@ export const useAuthStore = defineStore("auth", {
           });
         }
       } catch (error) {
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg,
-        });
+        if (error.response.data.msg) {
+          this.mainStore.addNotification({
+            type: "error",
+            message: error.response.data.msg,
+          });
+        }
       }
     },
     async getUrls() {
+      this.loads.urls = false;
       try {
         const res = await axios.get(this.mainStore.apiUrl + "/url/all", {
           headers: {
             authorization: `${this.token}`,
           },
         });
+        this.loads.urls = true;
 
         if (res.data.ok) {
           this.urls = res.data.urls;
         }
       } catch (error) {
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg,
-        });
+        this.loads.urls = true;
+        if (error.response.data.msg) {
+          this.mainStore.addNotification({
+            type: "error",
+            message: error.response.data.msg,
+          });
+        }
       }
     },
 

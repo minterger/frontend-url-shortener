@@ -32,10 +32,12 @@ export const useShortenStore = defineStore("shorten", {
           return res.data.url._id;
         }
       } catch (error) {
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg,
-        });
+        if (error.response.data.msg) {
+          this.mainStore.addNotification({
+            type: "error",
+            message: error.response.data.msg,
+          });
+        }
         return error.response.data.id;
       }
     },
@@ -58,10 +60,12 @@ export const useShortenStore = defineStore("shorten", {
           this.authStore.getUrls();
         }
       } catch (error) {
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg,
-        });
+        if (error.response.data.msg) {
+          this.mainStore.addNotification({
+            type: "error",
+            message: error.response.data.msg,
+          });
+        }
       }
     },
   },

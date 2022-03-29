@@ -50,7 +50,7 @@ const toogleNav = ref(false);
         </li>
         <li
           class="flex flex-col items-stretch sm:items-center"
-          v-if="authStore.user"
+          v-if="authStore.token"
         >
           <router-link
             to="/dashboard"
@@ -61,7 +61,7 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch">
           <router-link
-            v-if="!authStore.user"
+            v-if="!authStore.token"
             to="/login"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
@@ -102,7 +102,7 @@ const toogleNav = ref(false);
         </li>
         <li
           class="flex flex-col items-stretch sm:items-center"
-          v-if="authStore.user"
+          v-if="authStore.token"
         >
           <router-link
             to="/dashboard"
