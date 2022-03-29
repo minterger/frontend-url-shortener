@@ -61,7 +61,7 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch">
           <router-link
-            v-if="!authStore.token"
+            v-if="!authStore.user"
             to="/login"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
