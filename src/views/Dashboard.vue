@@ -22,11 +22,7 @@ const host = location.protocol + "//" + location.host;
       <div class="mt-6 w-full">
         <h3 class="text-lg font-semibold mb-2">List of your links</h3>
 
-        <transition-group
-          name="transition"
-          class="flex flex-col gap-1"
-          tag="ul"
-        >
+        <transition-group name="fade" class="flex flex-col gap-1" tag="ul">
           <li
             v-for="url in authStore.urls"
             :key="url._id"

@@ -7,7 +7,7 @@ const mainStore = useMainStore();
 
 <template>
   <div class="fixed z-50 top-11 right-0">
-    <transition-group name="transition">
+    <transition-group name="fade">
       <notification-vue
         v-for="notification in mainStore.notifications"
         :key="notification.id"
