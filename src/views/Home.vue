@@ -25,9 +25,9 @@ import ShortenForm from "../components/ShortenForm.vue";
       </div>
       <div
         id="about"
-        class="my-12 flex flex-col sm:flex-row justify-center sm:justify-evenly items-center"
+        class="my-12 flex flex-col-reverse sm:flex-row justify-center sm:justify-evenly items-center"
       >
-        <img src="../assets/web_developer.svg" alt="" />
+        <img src="../assets/web_developer.svg" alt="" class="max-w-xs" />
         <div class="text-center sm:text-left max-w-lg">
           <h2 class="text-4xl mt-4 sm:mt-0 sm:text-5xl font-semibold">
             About us
