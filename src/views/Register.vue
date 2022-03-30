@@ -12,11 +12,11 @@ const user = reactive({
 </script>
 
 <template>
-  <div class="m-3 w-full flex flex-col items-center">
+  <div class="p-1 w-full flex flex-col items-center">
     <h2 class="text-center my-10 text-2xl">Register your Account</h2>
 
     <div
-      class="dark:border-none border w-full max-w-sm shadow-lg mx-2 dark:bg-slate-800 rounded px-4 py-7 dark:highlight-white/5"
+      class="dark:border-none border w-full max-w-sm shadow-lg dark:bg-slate-800 rounded px-4 py-7 dark:highlight-white/5"
     >
       <form
         @submit.prevent="

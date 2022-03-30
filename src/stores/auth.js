@@ -121,6 +121,7 @@ export const useAuthStore = defineStore("auth", {
 
     logout() {
       this.user = null;
+      this.urls = [];
       this.removeToken();
       this.mainStore.addNotification({
         type: "success",

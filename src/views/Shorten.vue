@@ -39,7 +39,7 @@ const interval = setInterval(() => {
 </script>
 
 <template>
-  <div class="w-full m-3 sm:w-11/12 lg:w-9/12 max-w-7xl px-3">
+  <div class="w-full sm:w-11/12 lg:w-9/12 max-w-7xl p-3">
     <main class="mt-3 flex flex-col items-center">
       <span class="my-10 text-3xl font-semibold">Wait to go</span>
       <button

@@ -3,7 +3,7 @@ import ShortenForm from "../components/ShortenForm.vue";
 </script>
 
 <template>
-  <div class="w-full m-3 sm:w-11/12 lg:w-9/12 max-w-7xl px-3">
+  <div class="w-full sm:w-11/12 lg:w-9/12 max-w-7xl p-3">
     <header
       class="my-12 flex flex-col-reverse sm:flex-row justify-center sm:justify-evenly items-center"
     >

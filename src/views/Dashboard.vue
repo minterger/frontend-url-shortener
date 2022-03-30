@@ -12,7 +12,7 @@ const host = location.protocol + "//" + location.host;
 </script>
 
 <template>
-  <div class="w-full m-3 sm:w-11/12 lg:w-9/12 max-w-7xl px-3">
+  <div class="w-full sm:w-11/12 lg:w-9/12 max-w-7xl p-3">
     <main class="mt-3">
       <div>
         <h3 class="text-lg font-semibold mb-2">Shortenin your links here</h3>
