@@ -61,6 +61,19 @@ const host = location.protocol + "//" + location.host;
         >
           <span class="text-lg">You don't have any links yet. </span>
         </div>
+        <div
+          v-if="authStore.urls.length < 1 && !authStore.loads.urls"
+          class="flex justify-center"
+        >
+          <span class="text-lg align-middle mt-5"
+            >Loading
+            <box-icon
+              name="loader"
+              animation="spin"
+              class="fill-black dark:fill-white align-middle ml-2 scale-150"
+            ></box-icon
+          ></span>
+        </div>
       </div>
     </main>
   </div>
