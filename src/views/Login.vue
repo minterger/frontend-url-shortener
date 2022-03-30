@@ -11,11 +11,11 @@ const user = reactive({
 </script>
 
 <template>
-  <div class="m-3">
+  <div class="m-3 w-full flex flex-col items-center">
     <h2 class="text-center my-10 text-2xl">Login in your Account</h2>
 
     <div
-      class="dark:border-none border max-w-sm shadow-lg mx-auto dark:bg-slate-800 rounded px-4 py-7 dark:highlight-white/5"
+      class="dark:border-none border w-full max-w-sm shadow-lg mx-auto dark:bg-slate-800 rounded px-4 py-7 dark:highlight-white/5"
     >
       <form @submit.prevent="authStore.login(user.email, user.password)">
         <label
@@ -47,9 +47,22 @@ const user = reactive({
 
         <button
           type="submit"
-          class="bg-blue-600 text-white rounded w-full px-4 py-2 mt-5 hover:bg-blue-700 transition-colors duration-200"
+          class="bg-blue-600 text-white rounded w-full py-2 mt-5 hover:bg-blue-700 transition-colors duration-200"
         >
-          Login
+          <span v-if="authStore.loads.login">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              class="mx-auto motion-safe:animate-spin"
+              style="fill: rgba(255, 255, 255, 1); transform: ; msfilter: "
+            >
+              <path
+                d="M2 11h5v2H2zm15 0h5v2h-5zm-6 6h2v5h-2zm0-15h2v5h-2zM4.222 5.636l1.414-1.414 3.536 3.536-1.414 1.414zm15.556 12.728-1.414 1.414-3.536-3.536 1.414-1.414zm-12.02-3.536 1.414 1.414-3.536 3.536-1.414-1.414zm7.07-7.071 3.536-3.535 1.414 1.415-3.536 3.535z"
+              ></path>
+            </svg>
+          </span>
+          <span v-else>Login</span>
         </button>
       </form>
 

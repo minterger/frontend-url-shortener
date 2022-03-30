@@ -42,7 +42,7 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch sm:items-center">
           <router-link
-            to="/#about"
+            :to="{ name: 'home', hash: '#about' }"
             class="px-3 py-1 text-center rounded-sm dark:text-slate-50"
           >
             About
@@ -94,7 +94,7 @@ const toogleNav = ref(false);
         </li>
         <li class="flex flex-col items-stretch sm:items-center">
           <router-link
-            to="/#about"
+            :to="{ name: 'home', hash: '#about' }"
             class="px-3 py-1 text-center rounded-sm dark:text-slate-50"
           >
             About

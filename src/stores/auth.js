@@ -12,6 +12,8 @@ export const useAuthStore = defineStore("auth", {
     token: null,
     loads: {
       urls: false,
+      login: false,
+      register: false,
     },
   }),
   actions: {
@@ -37,11 +39,13 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async login(email, password) {
+      this.loads.login = true;
       try {
         const res = await axios.post(this.mainStore.apiUrl + "/auth/login", {
           email,
           password,
         });
+        this.loads.login = false;
         if (res.data.ok) {
           this.saveToken(res.data.token);
           this.getUser();
@@ -52,6 +56,7 @@ export const useAuthStore = defineStore("auth", {
           });
         }
       } catch (error) {
+        this.loads.login = false;
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
@@ -62,12 +67,14 @@ export const useAuthStore = defineStore("auth", {
     },
 
     async register(email, password, confirmPassword) {
+      this.loads.register = true;
       try {
         const res = await axios.post(this.mainStore.apiUrl + "/auth/register", {
           email,
           password,
           confirmPassword,
         });
+        this.loads.register = false;
 
         if (res.data.ok) {
           this.saveToken(res.data.token);
@@ -79,6 +86,7 @@ export const useAuthStore = defineStore("auth", {
           });
         }
       } catch (error) {
+        this.loads.register = false;
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
