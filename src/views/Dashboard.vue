@@ -63,6 +63,22 @@ const host = location.protocol + "//" + location.host;
                     ></path>
                   </svg>
                 </template>
+                <template v-else-if="shortenStore.checkDelete[url._id]">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    style="
+                      fill: rgba(255, 255, 255, 1);
+                      transform: ;
+                      msfilter: ;
+                    "
+                  >
+                    <path
+                      d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z"
+                    ></path>
+                  </svg>
+                </template>
                 <template v-else
                   ><svg
                     class="hidden sm:block"

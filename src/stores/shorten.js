@@ -12,6 +12,7 @@ export const useShortenStore = defineStore("shorten", {
       shorten: false,
       delete: {},
     },
+    checkDelete: {},
   }),
   actions: {
     async shortenUrl(longUrl) {
@@ -57,17 +58,21 @@ export const useShortenStore = defineStore("shorten", {
             authorization: `${this.authStore.token}`,
           },
         });
-        this.loads.delete[id] = false;
+        delete this.loads.delete[id];
 
         if (res.data.ok) {
+          this.checkDelete[id] = true;
           this.mainStore.addNotification({
             type: "error",
             message: "URL deleted successfully",
           });
           this.authStore.getUrls();
+          setTimeout(() => {
+            delete this.checkDelete[id];
+          }, 1000);
         }
       } catch (error) {
-        this.loads.delete[id] = false;
+        delete this.loads.delete[id];
 
         if (error.response.data.msg) {
           this.mainStore.addNotification({
