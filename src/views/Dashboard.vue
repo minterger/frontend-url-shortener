@@ -47,6 +47,7 @@ const host = location.protocol + "//" + location.host;
                 class="px-2 py-1 bg-red-600 text-white rounded-sm"
               >
                 <template v-if="shortenStore.loads.delete[url._id]">
+                  <!-- svg Load -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -64,10 +65,12 @@ const host = location.protocol + "//" + location.host;
                   </svg>
                 </template>
                 <template v-else-if="shortenStore.checkDelete[url._id]">
+                  <!-- svg check -->
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
+                    class="mx-auto"
                     style="
                       fill: rgba(255, 255, 255, 1);
                       transform: ;
