@@ -8,9 +8,14 @@ export const useShortenStore = defineStore("shorten", {
   state: () => ({
     mainStore: useMainStore(),
     authStore: useAuthStore(),
+    loads: {
+      shorten: false,
+      delete: {},
+    },
   }),
   actions: {
     async shortenUrl(longUrl) {
+      this.loads.shorten = true;
       try {
         const res = await axios.post(
           `${this.mainStore.apiUrl}/url`,
@@ -22,7 +27,8 @@ export const useShortenStore = defineStore("shorten", {
           }
         );
 
-        console.log("normal");
+        this.loads.shorten = false;
+
         if (res.data.ok) {
           this.mainStore.addNotification({
             type: "success",
@@ -32,6 +38,8 @@ export const useShortenStore = defineStore("shorten", {
           return res.data.url._id;
         }
       } catch (error) {
+        this.loads.shorten = false;
+
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
@@ -41,16 +49,15 @@ export const useShortenStore = defineStore("shorten", {
         return error.response.data.id;
       }
     },
-    async deleteUrl(shortUrl) {
+    async deleteUrl(id) {
+      this.loads.delete[id] = true;
       try {
-        const res = await axios.delete(
-          `${this.mainStore.apiUrl}/url/${shortUrl}`,
-          {
-            headers: {
-              authorization: `${this.authStore.token}`,
-            },
-          }
-        );
+        const res = await axios.delete(`${this.mainStore.apiUrl}/url/${id}`, {
+          headers: {
+            authorization: `${this.authStore.token}`,
+          },
+        });
+        this.loads.delete[id] = false;
 
         if (res.data.ok) {
           this.mainStore.addNotification({
@@ -60,6 +67,8 @@ export const useShortenStore = defineStore("shorten", {
           this.authStore.getUrls();
         }
       } catch (error) {
+        this.loads.delete[id] = false;
+
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
