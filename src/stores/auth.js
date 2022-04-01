@@ -33,7 +33,7 @@ export const useAuthStore = defineStore("auth", {
         this.logout();
         this.mainStore.addNotification({
           type: "error",
-          message: error.response.data.msg || "Session expired",
+          message: error.response.data.msg,
         });
       }
     },
