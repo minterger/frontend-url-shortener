@@ -3,12 +3,16 @@ import { useRoute } from "vue-router";
 import { useMainStore } from "../stores/main";
 import axios from "axios";
 import { ref } from "vue";
+import LoadSvg from "../components/svgs/LoadSvg.vue";
 
 const route = useRoute();
 const mainStore = useMainStore();
 
+const load = ref(false);
+
 const goUrl = () => {
   if (buttonDisabled.value) return;
+  load.value = true;
   axios
     .get(mainStore.apiUrl + "/url/go/" + route.params.id)
     .then((res) => {
@@ -19,6 +23,9 @@ const goUrl = () => {
         type: "error",
         message: err.response.data.msg,
       });
+    })
+    .then(() => {
+      load.value = false;
     });
 };
 
@@ -47,7 +54,10 @@ const interval = setInterval(() => {
         :disabled="buttonDisabled"
         @click="goUrl"
       >
-        {{ count }}
+        <load-svg v-if="load" />
+        <template v-else>
+          {{ count }}
+        </template>
       </button>
     </main>
   </div>

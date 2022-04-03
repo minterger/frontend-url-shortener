@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from "../stores/auth";
 import { reactive } from "vue";
+import LoadSvg from "../components/svgs/LoadSvg.vue";
 
 const authStore = useAuthStore();
 
@@ -54,19 +55,7 @@ const user = reactive({
           type="submit"
           class="bg-blue-600 text-white rounded w-full py-2 mt-5 hover:bg-blue-700 transition-colors duration-200"
         >
-          <template v-if="authStore.loads.register">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              class="mx-auto motion-safe:animate-spin"
-              style="fill: rgba(255, 255, 255, 1); transform: ; msfilter: "
-            >
-              <path
-                d="M2 11h5v2H2zm15 0h5v2h-5zm-6 6h2v5h-2zm0-15h2v5h-2zM4.222 5.636l1.414-1.414 3.536 3.536-1.414 1.414zm15.556 12.728-1.414 1.414-3.536-3.536 1.414-1.414zm-12.02-3.536 1.414 1.414-3.536 3.536-1.414-1.414zm7.07-7.071 3.536-3.535 1.414 1.415-3.536 3.535z"
-              ></path>
-            </svg>
-          </template>
+          <load-svg v-if="authStore.loads.register" />
           <template v-else>Register</template>
         </button>
       </form>
