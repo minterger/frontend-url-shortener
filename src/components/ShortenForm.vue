@@ -30,7 +30,7 @@ const shorten = async () => {
 <template>
   <form
     @submit.prevent="shorten"
-    class="flex gap-3 flex-col sm:flex-row w-full"
+    class="flex gap-2 flex-col sm:flex-row w-full"
   >
     <input
       type="text"
