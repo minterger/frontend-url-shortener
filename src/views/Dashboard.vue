@@ -17,14 +17,16 @@ const host = location.protocol + "//" + location.host;
 <template>
   <div class="w-full sm:w-11/12 lg:w-9/12 max-w-7xl p-3">
     <main class="mt-3">
+      <!-- links shortening form -->
       <div>
-        <h3 class="text-lg font-semibold mb-2">Shortenin your links here</h3>
+        <h3 class="text-lg font-semibold mb-2">Shorten your links here</h3>
         <shorten-form></shorten-form>
       </div>
 
       <div class="mt-6 w-full">
         <h3 class="text-lg font-semibold mb-2">List of your links</h3>
 
+        <!-- transition-group with tag ul containing the saved links -->
         <transition-group name="fade" class="flex flex-col gap-1" tag="ul">
           <li
             v-for="url in authStore.urls"
@@ -41,8 +43,10 @@ const host = location.protocol + "//" + location.host;
               >
               <span class="text-xs truncate">{{ url.longUrl }}</span>
             </div>
-            <div class="flex sm:items-center flex-col sm:flex-row">
-              <span class="sm:mr-2 mt-2 sm:mt-0 whitespace-nowrap">
+
+            <!-- click count and delete button -->
+            <div class="flex items-center justify-between sm:justify-start">
+              <span class="mr-2 mt-2 sm:mt-0 whitespace-nowrap">
                 clicks: {{ url.clicks }}/500
               </span>
               <button
@@ -52,19 +56,24 @@ const host = location.protocol + "//" + location.host;
                 <load-svg v-if="shortenStore.loads.delete[url._id]" />
                 <check-svg v-else-if="shortenStore.checkDelete[url._id]" />
                 <template v-else>
-                  <trash-svg class="hidden sm:block" />
-                  <span class="sm:hidden">Delete</span>
+                  <!-- <trash-svg class="hidden sm:block" /> -->
+                  <trash-svg />
+                  <!-- <span class="sm:hidden">Delete</span> -->
                 </template>
               </button>
             </div>
           </li>
         </transition-group>
+
+        <!-- no have any link -->
         <div
           v-if="authStore.urls.length < 1 && authStore.loads.urls"
           class="flex justify-center"
         >
           <span class="text-lg">You don't have any links yet. </span>
         </div>
+
+        <!-- loading links from api -->
         <div
           v-if="authStore.urls.length < 1 && !authStore.loads.urls"
           class="flex justify-center"
