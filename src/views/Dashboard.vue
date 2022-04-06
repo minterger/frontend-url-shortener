@@ -51,7 +51,11 @@ const host = location.protocol + "//" + location.host;
               </span>
               <button
                 @click="shortenStore.deleteUrl(url._id)"
-                class="px-2 py-1 bg-red-600 text-white rounded-sm"
+                :disabled="
+                  shortenStore.loads.delete[url._id] ||
+                  shortenStore.checkDelete[url._id]
+                "
+                class="px-2 py-1 bg-red-600 text-white rounded-sm disabled:cursor-wait"
               >
                 <load-svg v-if="shortenStore.loads.delete[url._id]" />
                 <check-svg v-else-if="shortenStore.checkDelete[url._id]" />
