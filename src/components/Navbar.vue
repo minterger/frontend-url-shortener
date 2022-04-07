@@ -1,6 +1,7 @@
 <script setup>
 import { useAuthStore } from "../stores/auth";
 import { ref } from "vue";
+import LoadSvg from "./svgs/LoadSvg.vue";
 
 const authStore = useAuthStore();
 
@@ -50,7 +51,7 @@ const toogleNav = ref(false);
         </li>
         <li
           class="flex flex-col items-stretch sm:items-center"
-          v-if="authStore.token"
+          v-if="authStore.isAuthenticated"
         >
           <router-link
             to="/dashboard"
@@ -59,20 +60,27 @@ const toogleNav = ref(false);
             Dashboard
           </router-link>
         </li>
-        <li class="flex flex-col items-stretch">
+        <li class="flex flex-col items-stretch" v-if="!authStore.loads.user">
           <router-link
-            v-if="!authStore.token"
+            v-if="!authStore.isAuthenticated"
             to="/login"
-            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
           >
             Login
           </router-link>
           <button
             v-else
             @click="authStore.logout"
-            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
           >
             Logout
+          </button>
+        </li>
+        <li class="flex flex-col items-stretch" v-else>
+          <button
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
+          >
+            <load-svg />
           </button>
         </li>
       </ul>
@@ -102,7 +110,7 @@ const toogleNav = ref(false);
         </li>
         <li
           class="flex flex-col items-stretch sm:items-center"
-          v-if="authStore.token"
+          v-if="authStore.isAuthenticated"
         >
           <router-link
             to="/dashboard"
@@ -111,9 +119,9 @@ const toogleNav = ref(false);
             Dashboard
           </router-link>
         </li>
-        <li class="flex flex-col items-stretch">
+        <li class="flex flex-col items-stretch" v-if="!authStore.loads.user">
           <router-link
-            v-if="!authStore.token"
+            v-if="!authStore.isAuthenticated"
             to="/login"
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
@@ -125,6 +133,13 @@ const toogleNav = ref(false);
             class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
           >
             Logout
+          </button>
+        </li>
+        <li class="flex flex-col items-stretch" v-else>
+          <button
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600"
+          >
+            <load-svg />
           </button>
         </li>
       </ul>

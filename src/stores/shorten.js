@@ -28,13 +28,12 @@ export const useShortenStore = defineStore("shorten", {
           }
         );
 
-        this.loads.shorten = false;
-
         if (res.data.ok) {
           this.mainStore.addNotification({
             type: "success",
             message: "Shortened URL successfully",
           });
+          this.loads.shorten = false;
           this.authStore.getUrls();
           return res.data.url._id;
         }
@@ -58,8 +57,8 @@ export const useShortenStore = defineStore("shorten", {
             authorization: `${this.authStore.token}`,
           },
         });
+        
         delete this.loads.delete[id];
-
         if (res.data.ok) {
           this.checkDelete[id] = true;
           this.mainStore.addNotification({

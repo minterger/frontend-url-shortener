@@ -13,7 +13,7 @@ const shortenLink = ref("");
 const host = location.protocol + "//" + location.host;
 
 const shorten = async () => {
-  if (authStore.token && !shortenStore.loads.shorten) {
+  if (authStore.isAuthenticated && !shortenStore.loads.shorten) {
     const returnShorten = await shortenStore.shortenUrl(shortenLink.value);
     if (returnShorten) {
       shortenLink.value = `${host}/${returnShorten}`;

@@ -13,13 +13,16 @@ export const useAuthStore = defineStore("auth", {
     loads: {
       urls: false,
       login: false,
+      user: false,
       register: false,
     },
+    isAuthenticated: false,
   }),
   actions: {
     async getUser() {
       try {
         if (this.token) {
+          this.loads.user = true;
           const res = await axios.get(this.mainStore.apiUrl + "/auth/", {
             headers: {
               authorization: `${this.token}`,
@@ -27,9 +30,12 @@ export const useAuthStore = defineStore("auth", {
           });
           if (res.data.ok) {
             this.user = res.data.user;
+            this.isAuthenticated = true;
           }
+          this.loads.user = false;
         }
       } catch (error) {
+        this.loads.user = false;
         this.logout();
         this.mainStore.addNotification({
           type: "error",
@@ -45,7 +51,6 @@ export const useAuthStore = defineStore("auth", {
           email,
           password,
         });
-        this.loads.login = false;
         if (res.data.ok) {
           this.saveToken(res.data.token);
           this.getUser();
@@ -55,6 +60,7 @@ export const useAuthStore = defineStore("auth", {
             message: "Welcome back!",
           });
         }
+        this.loads.login = false;
       } catch (error) {
         this.loads.login = false;
         if (error.response.data.msg) {
@@ -74,8 +80,7 @@ export const useAuthStore = defineStore("auth", {
           password,
           confirmPassword,
         });
-        this.loads.register = false;
-
+        
         if (res.data.ok) {
           this.saveToken(res.data.token);
           this.getUser();
@@ -85,6 +90,7 @@ export const useAuthStore = defineStore("auth", {
             message: "Welcome to Shorten Page!",
           });
         }
+        this.loads.register = false;
       } catch (error) {
         this.loads.register = false;
         if (error.response.data.msg) {
@@ -103,11 +109,11 @@ export const useAuthStore = defineStore("auth", {
             authorization: `${this.token}`,
           },
         });
-        this.loads.urls = true;
-
+        
         if (res.data.ok) {
           this.urls = res.data.urls;
         }
+        this.loads.urls = true;
       } catch (error) {
         this.loads.urls = true;
         if (error.response.data.msg) {
@@ -122,6 +128,7 @@ export const useAuthStore = defineStore("auth", {
     logout() {
       this.user = null;
       this.urls = [];
+      this.isAuthenticated = false;
       this.removeToken();
       this.mainStore.addNotification({
         type: "success",
