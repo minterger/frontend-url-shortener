@@ -40,6 +40,8 @@ export const useShortenStore = defineStore("shorten", {
       } catch (error) {
         this.loads.shorten = false;
 
+        this.authStore.validToken(error);
+
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
@@ -57,7 +59,7 @@ export const useShortenStore = defineStore("shorten", {
             authorization: `${this.authStore.token}`,
           },
         });
-        
+
         delete this.loads.delete[id];
         if (res.data.ok) {
           this.checkDelete[id] = true;
@@ -72,6 +74,8 @@ export const useShortenStore = defineStore("shorten", {
         }
       } catch (error) {
         delete this.loads.delete[id];
+
+        this.authStore.validToken(error);
 
         if (error.response.data.msg) {
           this.mainStore.addNotification({

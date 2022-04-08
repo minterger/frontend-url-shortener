@@ -36,11 +36,7 @@ export const useAuthStore = defineStore("auth", {
         }
       } catch (error) {
         this.loads.user = false;
-        this.logout();
-        this.mainStore.addNotification({
-          type: "error",
-          message: error.response.data.msg || "Session expired",
-        });
+        this.validToken(error);
       }
     },
 
@@ -80,7 +76,7 @@ export const useAuthStore = defineStore("auth", {
           password,
           confirmPassword,
         });
-        
+
         if (res.data.ok) {
           this.saveToken(res.data.token);
           this.getUser();
@@ -109,13 +105,14 @@ export const useAuthStore = defineStore("auth", {
             authorization: `${this.token}`,
           },
         });
-        
+
         if (res.data.ok) {
           this.urls = res.data.urls;
         }
         this.loads.urls = true;
       } catch (error) {
         this.loads.urls = true;
+        this.validToken(error);
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
@@ -150,6 +147,16 @@ export const useAuthStore = defineStore("auth", {
     getToken() {
       const token = localStorage.getItem("token");
       this.token = token ? token : null;
+    },
+
+    validToken(error) {
+      if (error.response.status === 401 && this.token) {
+        this.logout();
+        this.mainStore.addNotification({
+          type: "error",
+          message: "Session expired",
+        });
+      }
     },
   },
 });
