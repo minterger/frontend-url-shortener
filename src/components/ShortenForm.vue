@@ -17,7 +17,7 @@ const host = location.protocol + "//" + location.host;
 // customId replace spaces with nothing and / with -
 watch(customId, (val) => {
   if (val) {
-    customId.value = customId.value.replace(/\s/g, "").replace(/\//g, "-");
+    customId.value = customId.value.replace(/[/ &$#"'`.\\]/g, "-");
   }
 });
 
