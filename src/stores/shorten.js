@@ -15,12 +15,20 @@ export const useShortenStore = defineStore("shorten", {
     checkDelete: {},
   }),
   actions: {
-    async shortenUrl(longUrl) {
+    async shortenUrl(longUrl, customId, enableCustomId) {
       this.loads.shorten = true;
+      if (enableCustomId && !customId) {
+        this.mainStore.addNotification({
+          type: "error",
+          message: "Please enter a custom path",
+        });
+        this.loads.shorten = false;
+        return;
+      }
       try {
         const res = await axios.post(
           `${this.mainStore.apiUrl}/url`,
-          { longUrl },
+          { longUrl, customId: enableCustomId ? customId : null },
           {
             headers: {
               authorization: `${this.authStore.token}`,
