@@ -52,11 +52,20 @@ const shorten = async () => {
     <div class="flex gap-2 flex-col sm:flex-row w-full">
       <input
         type="text"
-        class="border flex-1 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
+        class="border flex-1 sm:w-10/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
         placeholder="Paste your link here"
         :disabled="shortenStore.loads.shorten"
         v-model="shortenLink"
       />
+      <transition name="fade">
+        <input
+          v-if="enableCustomId"
+          type="text"
+          class="border sm:w-3/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
+          placeholder="Write your custom path here"
+          v-model="customId"
+        />
+      </transition>
       <button
         :disabled="shortenStore.loads.shorten"
         class="rounded-sm sm:w-2/12 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200 disabled:cursor-wait"
@@ -68,26 +77,19 @@ const shorten = async () => {
 
     <template v-if="authStore.user?.premium">
       <button
-        class="cursor-pointer text-blue-500 hover:text-blue-700"
+        class="cursor-pointer text-blue-500 hover:text-blue-700 transition-colors"
         v-if="!enableCustomId"
         @click.prevent="enableCustomId = true"
       >
         Custom Path in URL (Premium, Beta Feature)
       </button>
-      <div class="mt-2" v-else>
-        <input
-          type="text"
-          class="border block w-full border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
-          placeholder="Write your custom path here"
-          v-model="customId"
-        />
-        <button
-          class="cursor-pointer text-blue-500 hover:text-blue-700"
-          @click.prevent="enableCustomId = false"
-        >
-          Disable Custom Path
-        </button>
-      </div>
+      <button
+        v-else
+        class="cursor-pointer text-blue-500 hover:text-blue-700 transition-colors"
+        @click.prevent="enableCustomId = false"
+      >
+        Disable Custom Path
+      </button>
     </template>
   </form>
 </template>
