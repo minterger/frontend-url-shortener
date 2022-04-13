@@ -14,10 +14,10 @@ const customId = ref("");
 const enableCustomId = ref(false);
 const host = location.protocol + "//" + location.host;
 
-// customId replace spaces with nothing
+// customId replace spaces with nothing and / with -
 watch(customId, (val) => {
   if (val) {
-    customId.value = customId.value.replace(/\s/g, "");
+    customId.value = customId.value.replace(/\s/g, "").replace(/\//g, "-");
   }
 });
 
