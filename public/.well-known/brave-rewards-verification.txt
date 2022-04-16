@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: linksto.ga
+Token: c9d49059842193b238cb359dc88f81dfadf2f300f8da00d0a2d972c98eef73a8
