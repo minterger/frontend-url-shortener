@@ -76,20 +76,15 @@ const shorten = async () => {
     </div>
 
     <template v-if="authStore.user?.premium">
-      <button
-        class="cursor-pointer text-blue-500 hover:text-blue-700 transition-colors"
-        v-if="!enableCustomId"
-        @click.prevent="enableCustomId = true"
-      >
-        Custom Path in URL (Premium, Beta Feature)
-      </button>
-      <button
-        v-else
-        class="cursor-pointer text-blue-500 hover:text-blue-700 transition-colors"
-        @click.prevent="enableCustomId = false"
-      >
-        Disable Custom Path
-      </button>
+      <label class="inline-flex items-center mt-1">
+        <input
+          type="checkbox"
+          class="h-5 w-5 text-blue-600"
+          v-model="enableCustomId"
+        /><span class="ml-2 dark:text-slate-200 text-slate-700">
+          Enable Custom Path</span
+        >
+      </label>
     </template>
   </form>
 </template>
