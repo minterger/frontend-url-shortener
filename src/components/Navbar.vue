@@ -64,21 +64,21 @@ const toogleNav = ref(false);
           <router-link
             v-if="!authStore.isAuthenticated"
             to="/login"
-            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 min-w-[5rem]"
           >
             Login
           </router-link>
           <button
             v-else
             @click="authStore.logout"
-            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 min-w-[5rem]"
           >
             Logout
           </button>
         </li>
         <li class="flex flex-col items-stretch" v-else>
           <button
-            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 w-20"
+            class="px-3 py-1 text-center rounded-sm text-slate-50 bg-blue-600 min-w-[5rem]"
           >
             <load-svg />
           </button>
