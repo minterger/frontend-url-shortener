@@ -1,13 +1,26 @@
 <script setup>
+import { ref } from "vue";
 import { useAuthStore } from "../stores/auth";
 import { useShortenStore } from "../stores/shorten";
 import ShortenForm from "../components/ShortenForm.vue";
 import LoadSvg from "../components/svgs/LoadSvg.vue";
 import CheckSvg from "../components/svgs/CheckSvg.vue";
 import TrashSvg from "../components/svgs/TrashSvg.vue";
+import ShareSvg from "../components/svgs/ShareSvg.vue";
+
+import qrcode from "qrcode";
+import ModalQrcode from "../components/ModalQrcode.vue";
 
 const authStore = useAuthStore();
 const shortenStore = useShortenStore();
+
+const openModalShare = ref(false);
+const modalQRCode = ref(null);
+
+const generateQR = async (url) => {
+  modalQRCode.value = await qrcode.toDataURL(url);
+  openModalShare.value = true;
+};
 
 authStore.getUrls();
 
@@ -45,29 +58,46 @@ const host = location.protocol + "//" + location.host;
             </div>
 
             <!-- click count and delete button -->
-            <div class="flex items-center justify-between sm:justify-start">
+            <div
+              class="flex items-start sm:items-center justify-between sm:justify-start"
+            >
               <span class="mr-2 mt-2 sm:mt-0 whitespace-nowrap">
                 clicks: {{ url.clicks }}/500
               </span>
-              <button
-                @click="shortenStore.deleteUrl(url._id)"
-                :disabled="
-                  shortenStore.loads.delete[url._id] ||
-                  shortenStore.checkDelete[url._id]
-                "
-                class="px-2 py-1 bg-red-600 text-white rounded-sm disabled:cursor-wait"
-              >
-                <load-svg v-if="shortenStore.loads.delete[url._id]" />
-                <check-svg v-else-if="shortenStore.checkDelete[url._id]" />
-                <template v-else>
-                  <!-- <trash-svg class="hidden sm:block" /> -->
-                  <trash-svg />
-                  <!-- <span class="sm:hidden">Delete</span> -->
-                </template>
-              </button>
+              <div class="flex gap-2">
+                <button
+                  @click="shortenStore.deleteUrl(url._id)"
+                  :disabled="
+                    shortenStore.loads.delete[url._id] ||
+                    shortenStore.checkDelete[url._id]
+                  "
+                  class="px-2 py-1 bg-red-600 text-white rounded-sm disabled:cursor-wait"
+                >
+                  <load-svg v-if="shortenStore.loads.delete[url._id]" />
+                  <check-svg v-else-if="shortenStore.checkDelete[url._id]" />
+                  <template v-else>
+                    <trash-svg />
+                  </template>
+                </button>
+                <button
+                  @click="generateQR(`${host}/${url._id}`)"
+                  class="px-2 py-1 bg-blue-700 text-white rounded-sm"
+                >
+                  <share-svg />
+                </button>
+              </div>
             </div>
           </li>
         </transition-group>
+
+        <!-- modal to show the qr code -->
+        <transition name="fade">
+          <modal-qrcode
+            v-show="openModalShare"
+            :qrcode="modalQRCode"
+            @close="openModalShare = false"
+          />
+        </transition>
 
         <!-- no have any link -->
         <div
