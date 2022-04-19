@@ -15,10 +15,12 @@ const authStore = useAuthStore();
 const shortenStore = useShortenStore();
 
 const openModalShare = ref(false);
+const nameQr = ref(null);
 const modalQRCode = ref(null);
 
 const generateQR = async (url) => {
   modalQRCode.value = await qrcode.toDataURL(url);
+  nameQr.value = url;
   openModalShare.value = true;
 };
 
@@ -95,6 +97,7 @@ const host = location.protocol + "//" + location.host;
           <modal-qrcode
             v-show="openModalShare"
             :qrcode="modalQRCode"
+            :name-qr="nameQr"
             @close="openModalShare = false"
           />
         </transition>
