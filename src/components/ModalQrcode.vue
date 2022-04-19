@@ -9,7 +9,10 @@ defineProps({
 </script>
 
 <template>
-  <div class="fixed inset-0 flex justify-center items-center z-50">
+  <div
+    class="fixed inset-0 flex justify-center items-center z-50"
+    @click.self="$emit('close')"
+  >
     <div class="relative bg-slate-800 w-64 rounded">
       <button
         class="absolute bg-red-700 rounded-full w-10 h-10 -right-4 -top-4"
