@@ -16,15 +16,14 @@ export const useShortenStore = defineStore("shorten", {
   }),
   actions: {
     async shortenUrl(longUrl, customId, enableCustomId) {
-      this.loads.shorten = true;
       if (enableCustomId && !customId) {
         this.mainStore.addNotification({
           type: "error",
           message: "Please enter a custom path",
         });
-        this.loads.shorten = false;
         return;
       }
+      this.loads.shorten = true;
       try {
         const res = await axios.post(
           `${this.mainStore.apiUrl}/url`,
@@ -41,13 +40,10 @@ export const useShortenStore = defineStore("shorten", {
             type: "success",
             message: "Shortened URL successfully",
           });
-          this.loads.shorten = false;
           this.authStore.getUrls();
           return res.data.url._id;
         }
       } catch (error) {
-        this.loads.shorten = false;
-
         this.authStore.validToken(error);
 
         if (error.response.data.msg) {
@@ -57,6 +53,8 @@ export const useShortenStore = defineStore("shorten", {
           });
         }
         return error.response.data.id;
+      } finally {
+        this.loads.shorten = false;
       }
     },
     async deleteUrl(id) {
@@ -68,7 +66,6 @@ export const useShortenStore = defineStore("shorten", {
           },
         });
 
-        delete this.loads.delete[id];
         if (res.data.ok) {
           this.checkDelete[id] = true;
           this.mainStore.addNotification({
@@ -81,8 +78,6 @@ export const useShortenStore = defineStore("shorten", {
           }, 1000);
         }
       } catch (error) {
-        delete this.loads.delete[id];
-
         this.authStore.validToken(error);
 
         if (error.response.data.msg) {
@@ -91,6 +86,8 @@ export const useShortenStore = defineStore("shorten", {
             message: error.response.data.msg,
           });
         }
+      } finally {
+        delete this.loads.delete[id];
       }
     },
   },

@@ -56,15 +56,15 @@ export const useAuthStore = defineStore("auth", {
             message: "Welcome back!",
           });
         }
-        this.loads.login = false;
       } catch (error) {
-        this.loads.login = false;
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
             message: error.response.data.msg,
           });
         }
+      } finally {
+        this.loads.login = false;
       }
     },
 
@@ -86,15 +86,15 @@ export const useAuthStore = defineStore("auth", {
             message: "Welcome to Shorten Page!",
           });
         }
-        this.loads.register = false;
       } catch (error) {
-        this.loads.register = false;
         if (error.response.data.msg) {
           this.mainStore.addNotification({
             type: "error",
             message: error.response.data.msg,
           });
         }
+      } finally {
+        this.loads.register = false;
       }
     },
     async getUrls() {
@@ -109,9 +109,7 @@ export const useAuthStore = defineStore("auth", {
         if (res.data.ok) {
           this.urls = res.data.urls;
         }
-        this.loads.urls = true;
       } catch (error) {
-        this.loads.urls = true;
         this.validToken(error);
         if (error.response.data.msg) {
           this.mainStore.addNotification({
@@ -119,6 +117,8 @@ export const useAuthStore = defineStore("auth", {
             message: error.response.data.msg,
           });
         }
+      } finally {
+        this.loads.urls = true;
       }
     },
 
