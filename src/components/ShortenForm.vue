@@ -11,7 +11,8 @@ const shortenStore = useShortenStore();
 
 const shortenLink = ref("");
 const customId = ref("");
-const enableCustomId = ref(false);
+const maxClicks = ref();
+const enablePremiumFeature = ref(false);
 const host = location.protocol + "//" + location.host;
 
 // customId replace spaces with nothing and / with -
@@ -29,13 +30,14 @@ watch(shortenLink, (val) => {
 
 const shorten = async () => {
   if (authStore.isAuthenticated && !shortenStore.loads.shorten) {
-    const returnShorten = await shortenStore.shortenUrl(
-      shortenLink.value,
-      customId.value,
-      enableCustomId.value
-    );
+    const returnShorten = await shortenStore.shortenUrl({
+      longUrl: shortenLink.value,
+      customId: customId.value,
+      maxClicks: maxClicks.value,
+      enablePremiumFeature: enablePremiumFeature.value,
+    });
     if (returnShorten) {
-      enableCustomId.value = false;
+      enablePremiumFeature.value = false;
       shortenLink.value = `${host}/${returnShorten}`;
     }
   } else {
@@ -52,20 +54,27 @@ const shorten = async () => {
     <div class="flex gap-2 flex-col sm:flex-row w-full">
       <input
         type="text"
-        class="border flex-1 sm:w-10/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
+        class="border flex-1 sm:w-8/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
         placeholder="Paste your link here"
         :disabled="shortenStore.loads.shorten"
         v-model="shortenLink"
       />
-      <transition name="fade">
-        <input
-          v-if="enableCustomId"
-          type="text"
-          class="border sm:w-3/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
-          placeholder="Write your custom path here"
-          v-model="customId"
-        />
-      </transition>
+      <transition-group name="fade">
+        <template v-if="enablePremiumFeature">
+          <input
+            type="text"
+            class="border sm:w-2/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
+            placeholder="Write your custom path here"
+            v-model="customId"
+          />
+          <input
+            type="text"
+            class="border sm:w-2/12 border-slate-400 dark:border-slate-700 dark:text-slate-50 dark:bg-slate-700 rounded px-3 py-2 disabled:cursor-wait"
+            placeholder="Max clicks (0 for unlimited)"
+            v-model="maxClicks"
+          />
+        </template>
+      </transition-group>
       <button
         :disabled="shortenStore.loads.shorten"
         class="rounded-sm sm:w-2/12 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200 disabled:cursor-wait"
@@ -80,7 +89,7 @@ const shorten = async () => {
         <input
           type="checkbox"
           class="h-5 w-5 text-blue-600"
-          v-model="enableCustomId"
+          v-model="enablePremiumFeature"
         /><span class="ml-2 dark:text-slate-200 text-slate-700">
           Enable Custom Path</span
         >

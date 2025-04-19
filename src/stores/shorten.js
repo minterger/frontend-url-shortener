@@ -15,8 +15,8 @@ export const useShortenStore = defineStore("shorten", {
     checkDelete: {},
   }),
   actions: {
-    async shortenUrl(longUrl, customId, enableCustomId) {
-      if (enableCustomId && !customId) {
+    async shortenUrl({ longUrl, customId, maxClicks, enablePremiumFeature }) {
+      if (enablePremiumFeature && !customId) {
         this.mainStore.addNotification({
           type: "error",
           message: "Please enter a custom path",
@@ -27,7 +27,11 @@ export const useShortenStore = defineStore("shorten", {
       try {
         const res = await axios.post(
           `${this.mainStore.apiUrl}/url`,
-          { longUrl, customId: enableCustomId ? customId : null },
+          {
+            longUrl,
+            customId: enablePremiumFeature ? customId : null,
+            clicks: maxClicks,
+          },
           {
             headers: {
               authorization: `${this.authStore.token}`,

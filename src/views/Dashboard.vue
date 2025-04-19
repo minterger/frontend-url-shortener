@@ -64,7 +64,7 @@ const host = location.protocol + "//" + location.host;
               class="flex items-start sm:items-center justify-between sm:justify-start"
             >
               <span class="mr-2 mt-2 sm:mt-0 whitespace-nowrap">
-                clicks: {{ url.clicks }}/500
+                clicks: {{ url.clicks }}/{{ url.maxClicks }}
               </span>
               <div class="flex gap-2">
                 <button

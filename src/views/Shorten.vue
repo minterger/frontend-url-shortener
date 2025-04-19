@@ -2,7 +2,7 @@
 import { useRoute } from "vue-router";
 import { useMainStore } from "../stores/main";
 import axios from "axios";
-import { ref } from "vue";
+import { ref, onUnmounted } from "vue";
 import LoadSvg from "../components/svgs/LoadSvg.vue";
 
 const route = useRoute();
@@ -35,14 +35,21 @@ const buttonDisabled = ref(true);
 const count = ref(5);
 
 // intervalo para el contador
-const interval = setInterval(() => {
-  count.value--;
-  if (count.value < 0) {
-    clearInterval(interval);
-    count.value = "Go";
-    buttonDisabled.value = false;
-  }
-}, 1000);
+const interval = setInterval(
+  () => {
+    count.value--;
+    if (count.value < 0) {
+      clearInterval(interval);
+      count.value = "Go";
+      buttonDisabled.value = false;
+      // redirigir a la url
+      goUrl();
+    }
+  },
+  count.value ? 1000 : 0
+);
+
+onUnmounted(() => clearInterval(interval));
 </script>
 
 <template>
