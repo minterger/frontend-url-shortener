@@ -2,12 +2,16 @@
 import NavbarVue from "./components/Navbar.vue";
 import Notifications from "./components/Notifications.vue";
 import { useAuthStore } from "./stores/auth";
+import { useMainStore } from "./stores/main";
 import LoadSvg from "./components/svgs/LoadSvg.vue";
 
 const authStore = useAuthStore();
+const mainStore = useMainStore();
 
 authStore.getToken();
 authStore.getUser();
+
+mainStore.changeTitle();
 </script>
 
 <template>

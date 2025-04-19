@@ -17,5 +17,8 @@ export const useMainStore = defineStore("main", {
         (notification) => notification.id !== id
       );
     },
+    changeTitle(title) {
+      document.title = `${this.nameApp} - URL Shortener`;
+    },
   },
 });
