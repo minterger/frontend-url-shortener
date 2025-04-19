@@ -85,10 +85,10 @@ const shorten = async () => {
     </div>
 
     <template v-if="authStore.user?.premium">
-      <label class="inline-flex items-center mt-1">
+      <label class="inline-flex items-center mt-1 cursor-pointer select-none">
         <input
           type="checkbox"
-          class="h-5 w-5 text-blue-600"
+          class="h-5 w-5 text-blue-600 cursor-pointer"
           v-model="enablePremiumFeature"
         /><span class="ml-2 dark:text-slate-200 text-slate-700">
           Enable Custom Path</span
