@@ -3,7 +3,10 @@ import { useAuthStore } from "../stores/auth";
 import { useMainStore } from "../stores/main";
 import { useShortenStore } from "../stores/shorten";
 import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 import LoadSvg from "./svgs/LoadSvg.vue";
+
+const router = useRouter();
 
 const authStore = useAuthStore();
 const mainStore = useMainStore();
@@ -45,6 +48,7 @@ const shorten = async () => {
       message: "You must be logged in to shorten links",
       type: "error",
     });
+    router.push("/login");
   }
 };
 </script>
