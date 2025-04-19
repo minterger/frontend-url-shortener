@@ -1,9 +1,11 @@
 <script setup>
 import { useAuthStore } from "../stores/auth";
+import { useMainStore } from "../stores/main";
 import { ref } from "vue";
 import LoadSvg from "./svgs/LoadSvg.vue";
 
 const authStore = useAuthStore();
+const mainStore = useMainStore();
 
 const toogleNav = ref(false);
 </script>
@@ -19,7 +21,7 @@ const toogleNav = ref(false);
         to="/"
         class="text-lg font-bold text-slate-900 dark:text-slate-50"
       >
-        LinksTo</router-link
+        {{ mainStore.nameApp }}</router-link
       >
 
       <button class="sm:hidden px-2 py-1" @click="toogleNav = !toogleNav">
