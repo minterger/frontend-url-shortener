@@ -12,35 +12,38 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1
       boxicons:
-        specifier: ^2.1.4
+        specifier: ^2.1.2
         version: 2.1.4
+      frontend-url-shortener:
+        specifier: 'file:'
+        version: 'file:'
       pinia:
-        specifier: ^2.3.1
+        specifier: ^2.0.12
         version: 2.3.1(vue@3.5.13)
       qrcode:
-        specifier: ^1.5.4
+        specifier: ^1.5.0
         version: 1.5.4
       vue:
-        specifier: ^3.5.13
+        specifier: ^3.2.25
         version: 3.5.13
       vue-router:
-        specifier: ^4.5.0
+        specifier: ^4.0.14
         version: 4.5.0(vue@3.5.13)
     devDependencies:
       '@vitejs/plugin-vue':
-        specifier: ^2.3.4
+        specifier: ^2.2.0
         version: 2.3.4(vite@2.9.18)(vue@3.5.13)
       autoprefixer:
-        specifier: ^10.4.21
+        specifier: ^10.4.4
         version: 10.4.21(postcss@8.5.3)
       postcss:
-        specifier: ^8.5.3
+        specifier: ^8.4.12
         version: 8.5.3
       tailwindcss:
-        specifier: ^3.4.17
+        specifier: ^3.0.23
         version: 3.4.17
       vite:
-        specifier: ^2.9.18
+        specifier: ^2.8.0
         version: 2.9.18
 
 packages:
@@ -461,6 +464,9 @@ packages:
 
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
+
+  'frontend-url-shortener@file:':
+    resolution: {directory: '', type: directory}
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -1326,6 +1332,19 @@ snapshots:
       signal-exit: 4.1.0
 
   fraction.js@4.3.7: {}
+
+  'frontend-url-shortener@file:':
+    dependencies:
+      axios: 0.26.1
+      boxicons: 2.1.4
+      pinia: 2.3.1(vue@3.5.13)
+      qrcode: 1.5.4
+      vue: 3.5.13
+      vue-router: 4.5.0(vue@3.5.13)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - debug
+      - typescript
 
   fsevents@2.3.3:
     optional: true
