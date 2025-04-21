@@ -81,7 +81,7 @@ const shorten = async () => {
       </transition-group>
       <button
         :disabled="shortenStore.loads.shorten"
-        class="rounded-sm sm:w-2/12 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200 disabled:cursor-wait"
+        class="rounded-sm sm:w-2/12 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200 cursor-pointer disabled:cursor-wait"
       >
         <load-svg v-if="shortenStore.loads.shorten" />
         <template v-else>Shorten</template>

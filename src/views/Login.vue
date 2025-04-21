@@ -48,7 +48,7 @@ const user = reactive({
 
         <button
           type="submit"
-          class="bg-blue-600 text-white rounded w-full py-2 mt-5 hover:bg-blue-700 transition-colors duration-200"
+          class="bg-blue-600 text-white rounded w-full py-2 mt-5 hover:bg-blue-700 transition-colors duration-200 cursor-pointer"
         >
           <load-svg v-if="authStore.loads.login" />
           <template v-else>Login</template>
