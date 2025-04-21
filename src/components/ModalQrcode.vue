@@ -27,7 +27,7 @@ const downloadQRCode = () => {
   >
     <div class="relative bg-slate-800 w-64 flex flex-col rounded">
       <button
-        class="absolute bg-red-700 rounded-full w-10 h-10 -right-4 -top-4"
+        class="absolute bg-red-700 rounded-full w-10 h-10 -right-4 -top-4 cursor-pointer"
         @click="$emit('close')"
       >
         <box-icon name="x" color="white" class="align-middle"></box-icon>
@@ -37,7 +37,7 @@ const downloadQRCode = () => {
       </div>
       <button
         @click="downloadQRCode"
-        class="rounded-sm m-2 mt-0 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200"
+        class="rounded-sm m-2 mt-0 bg-green-500 dark:bg-red-600 text-white px-3 py-2 hover:bg-green-600 hover:dark:bg-red-700 transition-colors duration-200 cursor-pointer"
       >
         Download
       </button>

@@ -73,7 +73,7 @@ const host = location.protocol + "//" + location.host;
                     shortenStore.loads.delete[url._id] ||
                     shortenStore.checkDelete[url._id]
                   "
-                  class="px-2 py-1 bg-red-600 text-white rounded-sm disabled:cursor-wait"
+                  class="px-2 py-1 bg-red-600 text-white rounded-sm cursor-pointer disabled:cursor-wait"
                 >
                   <load-svg v-if="shortenStore.loads.delete[url._id]" />
                   <check-svg v-else-if="shortenStore.checkDelete[url._id]" />
@@ -83,7 +83,7 @@ const host = location.protocol + "//" + location.host;
                 </button>
                 <button
                   @click="generateQR(`${host}/${url._id}`)"
-                  class="px-2 py-1 bg-blue-700 text-white rounded-sm"
+                  class="px-2 py-1 bg-blue-700 text-white rounded-sm cursor-pointer"
                 >
                   <share-svg />
                 </button>
