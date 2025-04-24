@@ -43,7 +43,7 @@ const interval = setInterval(
       count.value = "Go";
       buttonDisabled.value = false;
       // redirigir a la url
-      goUrl();
+      // goUrl();
     }
   },
   count.value ? 1000 : 0
@@ -59,6 +59,7 @@ onUnmounted(() => clearInterval(interval));
       <button
         class="w-24 h-24 text-lg rounded-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 align-middle text-center font-bold text-white border-2 border-blue-900 disabled:border-l-blue-900 transition-colors duration-200"
         :disabled="buttonDisabled"
+        :key="count"
         @click="goUrl"
       >
         <load-svg v-if="load" />
